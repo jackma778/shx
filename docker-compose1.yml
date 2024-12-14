@@ -20,4 +20,4 @@ services:
       retries: 1
       start_period: 15s
     working_dir: /usr/local/share/v2ray
-    command: sh -c "chmod +x v2scar_alpine && ./v2scar_alpine -id=${nodeId} -gp=127.0.0.1:8079 & ./xray run -c server_config.json"
+    command: sh -c "/usr/local/share/v2ray/v2scar_alpine -id=${nodeId} -gp=127.0.0.1:8079 & /usr/local/share/v2ray/xray run -c server_config.json || sleep 30"
