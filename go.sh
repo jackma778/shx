@@ -431,6 +431,7 @@ BindsTo=v2ray.service
 [Service]
 WorkingDirectory=/usr/bin/v2ray/
 ExecStart=/usr/bin/v2ray/v2scar --nodeid=$new_nodeid
+ExecStop=/bin/sleep 10
 Restart=always
 RestartSec=60s
 User=root
