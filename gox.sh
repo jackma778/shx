@@ -410,6 +410,7 @@ BindsTo=v2scar.service
 [Service]
 User=root
 WorkingDirectory=/usr/bin/v2ray/
+ExecStartPre=/bin/sleep 3
 ExecStart=/usr/bin/v2ray/xray run -config /usr/bin/v2ray/server_config.json
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
@@ -431,7 +432,7 @@ BindsTo=v2ray.service
 [Service]
 WorkingDirectory=/usr/bin/v2ray/
 ExecStart=/usr/bin/v2ray/v2scar --nodeid=$new_nodeid
-ExecStop=/bin/sleep 10
+ExecStop=/bin/sleep 6
 Restart=always
 RestartSec=60s
 User=root
@@ -450,7 +451,7 @@ EOF
             minute=$(shuf -i 0-59 -n 1)
             hour=$(shuf -i 0-23 -n 1)
             weekday=$(shuf -i 0-6 -n 1)
-            (crontab -l ; echo "$minute $hour * * $weekday systemctl restart v2scar  && sleep 3  && systemctl restart v2ray") | crontab -
+            (crontab -l ; echo "$minute $hour * * $weekday systemctl restart v2scar") | crontab -
         fi
     else
         colorEcho ${RED} "Failed to install XRay, Try use debian10 64"
@@ -475,8 +476,7 @@ restartV2ray(){
     sleep 1
     colorEcho ${BLUE} "Starting up V2Ray service."
     ntpdate time.windows.com && hwclock -w
-    systemctl start v2scar.service && sleep 3
-	systemctl start v2ray.service && sleep 1
+    systemctl start v2scar.service && sleep 4
     ps -ef | grep xray| grep server_config.json
     if [ $? -eq 0 ];then
         colorEcho ${GREEN} "OK" 
