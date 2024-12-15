@@ -381,7 +381,6 @@ fi
     fi
     colorEcho ${BLUE} "Downloading Xray"
     wget --no-check-certificate -O /usr/bin/v2ray/xray.zip ${DOWNLOAD_LINK}
-    chmod +x /usr/bin/v2ray/xray	
     if [ $? != 0 ]; then
         colorEcho ${RED} "Failed to download XRay! Please check your network or try again."
         exit 3
@@ -389,6 +388,7 @@ fi
     colorEcho ${BLUE} "unzip Xray"
     # Install XRay binary to /usr/bin/v2ray
     unzip -o /usr/bin/v2ray/xray.zip -d /usr/bin/v2ray/
+    chmod +x /usr/bin/v2ray/xray
     if [ $? != 0 ]; then
         colorEcho ${RED} "Failed to unzip XRay!"
         exit 3
@@ -525,7 +525,7 @@ update_geo(){
 
 
 echo && echo -e " 分享小鸡@mjjcloudplatform ${Red_font_prefix}[v0.5]${Font_color_suffix}
-  -- v0.5 2024.9.3 -- 
+  -- v0.6 2024.12.15 -- 
   
   
 ————————————
