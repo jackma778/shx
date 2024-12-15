@@ -38,7 +38,7 @@ while true; do
 done
 
 
-if [ ! -f /root/sh/.env ]; then
+if [ ! -f /root/.mcptoken ]; then
         echo "$new_nodeid=MJJ6688" > /root/.mcptoken
 fi
 
