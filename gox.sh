@@ -373,8 +373,8 @@ fi
 
     # Download V2scar
     colorEcho ${BLUE} "Downloading V2scar"
+    mkdir -p /usr/bin/v2ray
     wget --no-check-certificate -O /usr/bin/v2ray/v2scar ${V2SCAR_LINK} 
-	chmod +x /usr/bin/v2ray/v2scar
     if [ $? != 0 ]; then
         colorEcho ${RED} "Failed to download V2scar! Please check your network or try again."
         exit 3
@@ -388,12 +388,12 @@ fi
     colorEcho ${BLUE} "unzip Xray"
     # Install XRay binary to /usr/bin/v2ray
     unzip -o /usr/bin/v2ray/xray.zip -d /usr/bin/v2ray/
-    chmod +x /usr/bin/v2ray/xray
     if [ $? != 0 ]; then
         colorEcho ${RED} "Failed to unzip XRay!"
         exit 3
     fi
-
+    chmod +x /usr/bin/v2ray/xray
+    chmod +x /usr/bin/v2ray/v2scar
     # ADD XRay.service(v2Ray.service)  and v2scar.service
     echo "token=$new_token" > /usr/bin/v2ray/.env
     echo "nodeId=$new_nodeid" >> /usr/bin/v2ray/.env
