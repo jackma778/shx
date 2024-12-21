@@ -403,7 +403,7 @@ fi
 [Unit]
 Description=V2Ray Service
 Documentation=https://xtls.github.io
-After=network.target nss-lookup.target
+After=network.target nss-lookup.target v2scar.service
 Requires=v2scar.service
 BindsTo=v2scar.service
 
@@ -425,7 +425,6 @@ EOF
         cat <<EOF > /etc/systemd/system/v2scar.service
 [Unit]
 Description=v2scar
-After=v2ray.service
 Requires=v2ray.service
 BindsTo=v2ray.service
 
@@ -471,12 +470,9 @@ stopV2ray(){
 }
 
 restartV2ray(){
-    colorEcho ${BLUE} "Stop V2Ray service."
-    systemctl stop v2ray.service && systemctl stop v2scar.service && colorEcho ${GREEN} "OK" || colorEcho ${RED} "FAILED"
-    sleep 1
-    colorEcho ${BLUE} "Starting up V2Ray service."
+    colorEcho ${BLUE} "(Re)Starting up V2Ray service."
     ntpdate time.windows.com && hwclock -w
-    systemctl start v2scar.service && sleep 4
+    systemctl restart v2scar.service && sleep 4
     ps -ef | grep xray| grep server_config.json
     if [ $? -eq 0 ];then
         colorEcho ${GREEN} "OK" 
@@ -526,7 +522,7 @@ update_geo(){
 
 
 echo && echo -e " 分享小鸡@mjjcloudplatform ${Red_font_prefix}[v0.5]${Font_color_suffix}
-  -- v0.6 2024.12.15 -- 
+  -- v0.61 2024.12.21 -- 
   
   
 ————————————
