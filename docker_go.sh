@@ -151,7 +151,7 @@ fi
   docker ps -a
 }
 update_geo(){
-        DAT_PATH="/root/sh"
+        DAT_PATH="/root/mcp/shx"
         DOWNLOAD_LINK_GEOIP="https://github.com/v2fly/geoip/releases/latest/download/geoip.dat"
         DOWNLOAD_LINK_GEOSITE="https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
         wget --no-check-certificate -O "${DAT_PATH}/geoip.dat" "${DOWNLOAD_LINK_GEOIP}"
@@ -250,7 +250,7 @@ showLog(){
   fi
 }
 echo && echo -e " 分享小鸡@mjjcloudplatform ${Red_font_prefix}[v0.5]${Font_color_suffix}
-  -- v0.5 2024.9.3 -- 
+  -- v0.6 2024.1.25 -- 
   
   
 ————————————
