@@ -94,7 +94,7 @@ EOF
     sysctl -p
 fi
 
-if ! grep -q "^net.nf_conntrack_max = 20971520" /etc/sysctl.conf; then
+if ! grep -q "^net.netfilter.nf_conntrack_max = 20971520" /etc/sysctl.conf; then
     cat <<EOF >> /etc/sysctl.conf
 fs.file-max = 1000000
 fs.inotify.max_user_instances = 8192
