@@ -117,6 +117,7 @@ net.ipv4.tcp_syn_retries = 1
 net.ipv4.tcp_synack_retries = 1
 net.ipv4.tcp_timestamps = 0
 net.ipv4.tcp_max_orphans = 32768
+net.netfilter.nf_conntrack_max = 20971520
 net.nf_conntrack_max = 20971520
 EOF
     sysctl -p
