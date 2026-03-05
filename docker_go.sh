@@ -153,11 +153,26 @@ fi
 }
 update_geo(){
         DAT_PATH="/root/mcp/shx"
+        XRAY_FILE="Xray-linux-64.zip"
+        DOWNLOAD_LINK_XRAY="https://github.com/XTLS/Xray-core/releases/latest/download/$XRAY_FILE"
         DOWNLOAD_LINK_GEOIP="https://github.com/v2fly/geoip/releases/latest/download/geoip.dat"
         DOWNLOAD_LINK_GEOSITE="https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
-        wget --no-check-certificate -O "${DAT_PATH}/geoip.dat" "${DOWNLOAD_LINK_GEOIP}"
-        wget --no-check-certificate -O "${DAT_PATH}/geosite.dat" "${DOWNLOAD_LINK_GEOSITE}"
+
+        echo "Downloading Xray (x86_64)..."
+        wget --no-check-certificate -O "/tmp/$XRAY_FILE" "$DOWNLOAD_LINK_XRAY"
+
+        echo "Extracting Xray..."
+        unzip -o "/tmp/$XRAY_FILE" -d "$DAT_PATH"
+        rm -f "/tmp/$XRAY_FILE"
+
+        echo "Downloading geo files..."
+
+        wget --no-check-certificate -O "${DAT_PATH}/geoip.dat" "$DOWNLOAD_LINK_GEOIP"
+        wget --no-check-certificate -O "${DAT_PATH}/geosite.dat" "$DOWNLOAD_LINK_GEOSITE"
+
         chmod 644 "${DAT_PATH}"/*.dat
+
+        echo "Update completed."
 }
 refreshPort(){
     docker ps -a | grep mcpv2
