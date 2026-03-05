@@ -271,7 +271,7 @@ echo && echo -e " 分享小鸡@mjjcloudplatform ${Red_font_prefix}[v0.5]${Font_c
   
 ————————————
  ${Green_font_prefix}0.${Font_color_suffix} Docker版安装&对接
- ${Green_font_prefix}1.${Font_color_suffix} 更新geo文件
+ ${Green_font_prefix}1.${Font_color_suffix} 更新xray和geosite
 ————————————
  ${Green_font_prefix}2.${Font_color_suffix} 重启mcpv2
  ${Green_font_prefix}3.${Font_color_suffix} 停止mcpv2
