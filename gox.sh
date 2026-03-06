@@ -24,7 +24,8 @@ ERROR_IF_UPTODATE=''
 API='https://api.cjy.me'
 
 CUR_VER=""
-NEW_VER="v24.11.30"
+#NEW_VER="v24.11.30"
+NEW_VER="latest"
 ARCH=$(uname -m)
 if [[ $ARCH == "armv7"* ]]; then
     DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/download/${NEW_VER}/Xray-linux-arm32-v7a.zip"
@@ -544,12 +545,12 @@ update_geo(){
 
 
 echo && echo -e " 分享小鸡@mjjcloudplatform ${Red_font_prefix}[v0.5]${Font_color_suffix}
-  -- v0.61 2024.12.21 -- 
+  -- v0.7 2026.3.6 -- 
   
   
 ————————————
  ${Green_font_prefix}0.${Font_color_suffix} 安装&对接
- ${Green_font_prefix}1.${Font_color_suffix} 更新geo文件
+ ${Green_font_prefix}1.${Font_color_suffix} 更新xray和geo
 ————————————
  ${Green_font_prefix}2.${Font_color_suffix} 启动/重启
  ${Green_font_prefix}3.${Font_color_suffix} 停止
