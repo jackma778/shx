@@ -372,29 +372,6 @@ if ! grep -q "^ulimit -SHn 1000000" /etc/profile; then
     source /etc/profile
 fi
 
-    # Download V2scar
-    colorEcho ${BLUE} "Downloading V2scar"
-    mkdir -p /usr/bin/v2ray
-    wget --no-check-certificate -O /usr/bin/v2ray/v2scar ${V2SCAR_LINK} 
-    if [ $? != 0 ]; then
-        colorEcho ${RED} "Failed to download V2scar! Please check your network or try again."
-        exit 3
-    fi
-    colorEcho ${BLUE} "Downloading Xray"
-    wget --no-check-certificate -O /usr/bin/v2ray/xray.zip ${DOWNLOAD_LINK}
-    if [ $? != 0 ]; then
-        colorEcho ${RED} "Failed to download XRay! Please check your network or try again."
-        exit 3
-    fi
-    colorEcho ${BLUE} "unzip Xray"
-    # Install XRay binary to /usr/bin/v2ray
-    unzip -o /usr/bin/v2ray/xray.zip -d /usr/bin/v2ray/
-    if [ $? != 0 ]; then
-        colorEcho ${RED} "Failed to unzip XRay!"
-        exit 3
-    fi
-    chmod +x /usr/bin/v2ray/xray
-    chmod +x /usr/bin/v2ray/v2scar
     # ADD XRay.service(v2Ray.service)  and v2scar.service
     echo "token=$new_token" > /usr/bin/v2ray/.env
     echo "nodeId=$new_nodeid" >> /usr/bin/v2ray/.env
@@ -512,12 +489,56 @@ remove(){
 }
 
 update_geo(){
-        DAT_PATH="/usr/bin/v2ray"
-        DOWNLOAD_LINK_GEOIP="https://github.com/v2fly/geoip/releases/latest/download/geoip.dat"
-        DOWNLOAD_LINK_GEOSITE="https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
-        wget --no-check-certificate -O "${DAT_PATH}/geoip.dat" "${DOWNLOAD_LINK_GEOIP}"
-        wget --no-check-certificate -O "${DAT_PATH}/geosite.dat" "${DOWNLOAD_LINK_GEOSITE}"
-        chmod 644 "${DAT_PATH}"/*.dat
+    DAT_PATH="/usr/bin/v2ray"
+    XRAY_ZIP="${DAT_PATH}/xray.zip"
+
+    DOWNLOAD_LINK_GEOIP="https://github.com/v2fly/geoip/releases/latest/download/geoip.dat"
+    DOWNLOAD_LINK_GEOSITE="https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
+
+    mkdir -p "${DAT_PATH}"
+
+    colorEcho ${BLUE} "[INFO] Downloading V2scar..."
+    wget --no-check-certificate -q -O "${DAT_PATH}/v2scar" "${V2SCAR_LINK}"
+    if [ $? -ne 0 ]; then
+        colorEcho ${RED} "[ERROR] Failed to download V2scar"
+        exit 3
+    fi
+    chmod +x "${DAT_PATH}/v2scar"
+    colorEcho ${GREEN} "[OK] V2scar downloaded"
+
+    colorEcho ${BLUE} "[INFO] Downloading Xray..."
+    wget --no-check-certificate -q -O "${XRAY_ZIP}" "${DOWNLOAD_LINK}"
+    if [ $? -ne 0 ]; then
+        colorEcho ${RED} "[ERROR] Failed to download Xray"
+        exit 3
+    fi
+    colorEcho ${GREEN} "[OK] Xray downloaded"
+
+    colorEcho ${BLUE} "[INFO] Extracting Xray..."
+    unzip -o "${XRAY_ZIP}" -d "${DAT_PATH}" >/dev/null
+    if [ $? -ne 0 ]; then
+        colorEcho ${RED} "[ERROR] Failed to unzip Xray"
+        exit 3
+    fi
+    chmod +x "${DAT_PATH}/xray"
+    colorEcho ${GREEN} "[OK] Xray extracted"
+
+    colorEcho ${BLUE} "[INFO] Updating geoip.dat..."
+    wget --no-check-certificate -q -O "${DAT_PATH}/geoip.dat" "${DOWNLOAD_LINK_GEOIP}"
+    if [ $? -ne 0 ]; then
+        colorEcho ${RED} "[ERROR] Failed to download geoip.dat"
+        exit 3
+    fi
+
+    colorEcho ${BLUE} "[INFO] Updating geosite.dat..."
+    wget --no-check-certificate -q -O "${DAT_PATH}/geosite.dat" "${DOWNLOAD_LINK_GEOSITE}"
+    if [ $? -ne 0 ]; then
+        colorEcho ${RED} "[ERROR] Failed to download geosite.dat"
+        exit 3
+    fi
+
+    chmod 644 "${DAT_PATH}"/*.dat
+    colorEcho ${GREEN} "[OK] Geo files updated successfully"
 }
 
 
@@ -547,6 +568,7 @@ case "$num" in
         installSoftware unzip
         installSoftware ca-certificates
         installSoftware ntpdate
+        update_geo
         installV2Ray "${ZIPFILE}" "${ZIPROOT}" || return $?
         restartV2ray
         ;;
