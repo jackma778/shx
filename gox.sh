@@ -26,14 +26,17 @@ API='https://api.cjy.me'
 CUR_VER=""
 ARCH=$(uname -m)
 if [[ $ARCH == "armv7"* ]]; then
-    DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-arm32-v7a.zip"
-        V2SCAR_LINK="https://github.com/jackma778/shx/releases/download/v0.1/v2scar_linuxarm64"
+    #DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-arm32-v7a.zip"
+    DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/download/v26.6.27/Xray-linux-arm32-v7a.zip"
+    V2SCAR_LINK="https://github.com/jackma778/shx/releases/download/v0.1/v2scar_linuxarm64"
 elif [[ $ARCH == "aarch64" ]]; then
-    DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-arm64-v8a.zip"
-        V2SCAR_LINK="https://github.com/jackma778/shx/releases/download/v0.1/v2scar_linuxarm64"
+    #DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-arm64-v8a.zip"
+    DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/download/v26.6.27/Xray-linux-arm64-v8a.zip"
+    V2SCAR_LINK="https://github.com/jackma778/shx/releases/download/v0.1/v2scar_linuxarm64"
 elif [[ $ARCH == "x86_64" ]]; then
-    DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip"
-        V2SCAR_LINK="https://github.com/jackma778/shx/releases/download/v0.1/v2scar_linux64"
+    #DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip"
+    DOWNLOAD_LINK="https://github.com/XTLS/Xray-core/releases/download/v26.6.27/Xray-linux-64.zip"
+    V2SCAR_LINK="https://github.com/jackma778/shx/releases/download/v0.1/v2scar_linux64"
 fi
 
 VDIS=''
