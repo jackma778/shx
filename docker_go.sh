@@ -154,7 +154,8 @@ fi
 update_geo(){
         DAT_PATH="/root/mcp/shx"
         XRAY_FILE="Xray-linux-64.zip"
-        DOWNLOAD_LINK_XRAY="https://github.com/XTLS/Xray-core/releases/latest/download/$XRAY_FILE"
+        #DOWNLOAD_LINK_XRAY="https://github.com/XTLS/Xray-core/releases/latest/download/$XRAY_FILE"
+        DOWNLOAD_LINK_XRAY="https://github.com/XTLS/Xray-core/releases/download/v26.6.27/$XRAY_FILE"
         DOWNLOAD_LINK_GEOIP="https://github.com/v2fly/geoip/releases/latest/download/geoip.dat"
         DOWNLOAD_LINK_GEOSITE="https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
 
